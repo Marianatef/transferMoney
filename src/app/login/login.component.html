@@ -1,0 +1,71 @@
+<br /><br />
+<!-- Header of Form -->
+<h1 style="text-align: center">Login</h1>
+<p
+  style="
+    font-size: medium;
+    font-style: oblique;
+    color: rgb(99, 89, 89);
+    text-align: center;
+  "
+>
+  New Account ? <a href="#">Sign Up</a>
+</p>
+<div class="container">
+  <div class="form-container">
+    <h1 style="text-align: left">Login Here</h1>
+    <p style="text-align: left">Welcome back.Login to your account</p>
+    <!-- Content of Form -->
+    <form
+      id="createAccountForm"
+      #log_Form="ngForm"
+      (ngSubmit)="onSubmit(log_Form)"
+    >
+      <!-- Email- Address -->
+      <label for="email">Email-Address</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="E-mail Address"
+        required
+        [(ngModel)]="log.email"
+        required
+        #emailInput="ngModel"
+        email
+      />
+      <small *ngIf="log_Form && emailInput.invalid && emailInput.dirty"
+        >Invalid Email Format !</small
+      >
+      <!-- Password -->
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder=""
+        required
+        [(ngModel)]="log.password"
+        required
+        #passwordlInput="ngModel"
+        minlength="8"
+        maxlength="8"
+      />
+      <small *ngIf="log_Form && passwordlInput.invalid && passwordlInput.dirty"
+        >Invalid Passowrd Format !</small
+      >
+      <!-- Login Button -->
+      <button
+        type="submit"
+        [disabled]="log_Form.invalid"
+        routerLink="/home-page"
+      >
+        Login
+      </button>
+    </form>
+    <p>Don’t have an account? <a href="#">Create Account</a></p>
+  </div>
+</div>
+<!-- Footer -->
+<footer>
+  <p style="text-align: center">©Speedo Transfer Payments Limited 2024</p>
+</footer>

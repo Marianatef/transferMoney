@@ -6,6 +6,7 @@
   padding: 10px 20px;
   background: url("../../assets/img1.png") no-repeat center center/cover;
   height: 400px;
+  padding-top: 90px;
 }
 
 .header::before {

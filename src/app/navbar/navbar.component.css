@@ -1,0 +1,53 @@
+header {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  height: 80px;
+  width: 100%;
+  border: 1px solid #ccc;
+  position: fixed;
+  z-index: 1;
+}
+nav h1 {
+  list-style-type: none;
+  padding: 0;
+  position: relative;
+  bottom: -12px;
+  left: 60px;
+  text-align: left;
+  font-style: Inter;
+  font-size: 25px;
+}
+nav button {
+  background-color: #ffffff;
+  position: relative;
+  top: -76px;
+  right: -1100px;
+  width: Hug (190px) px;
+  text-align: center;
+  height: Hug (60px) px;
+  padding: 16px 32px 16px 32px;
+  font-size: medium;
+  border: 1px solid #ccc;
+  border: 1px 0px 0px 0px;
+  opacity: 0px;
+  margin-right: 10px;
+}
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  color: #000000;
+  position: relative;
+  top: -28px;
+  left: 60px;
+  text-align: center;
+}
+nav ul li {
+  display: inline;
+  margin: 0 1em;
+}
+
+nav ul li a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  font-size: medium;
+}

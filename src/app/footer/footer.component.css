@@ -1,0 +1,30 @@
+footer {
+  background-color: rgba(82, 18, 32, 1);
+  color: white;
+  text-align: center;
+  padding: 1em 0;
+  height: 100%;
+}
+footer h3 {
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: center;
+}
+footer a {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: center;
+  text-underline-offset: 2px;
+  color: #ccc;
+}
+footer h4 {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: center;
+}

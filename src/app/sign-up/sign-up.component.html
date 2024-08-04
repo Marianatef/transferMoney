@@ -1,0 +1,220 @@
+<h1>Speedo Transfer</h1>
+<!-- Header of Form -->
+<div class="container">
+  <div class="form-container">
+    <h2>Create Your Account</h2>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod
+      tempor incididunt ut labore.
+    </p>
+    <!-- Content of Form -->
+    <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+      <!-- Full Name -->
+      <label for="fullName">Full-Name</label>
+      <input
+        type="text"
+        id="fullName"
+        name="fullName"
+        placeholder="Full-Name"
+        required
+        [(ngModel)]="user.fullName"
+        required
+        #FullNameInput="ngModel"
+        minlength="3"
+        maxlength="30"
+      />
+      <small *ngIf="userForm && FullNameInput.invalid && FullNameInput.dirty"
+        >Invalid Full-Name Format !</small
+      >
+      <!-- User Name -->
+      <label for="username">User name</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        placeholder="User name"
+        required
+        [(ngModel)]="user.username"
+        required
+        #UserNameInput="ngModel"
+        minlength="3"
+        maxlength="30"
+      />
+      <small *ngIf="userForm && UserNameInput.invalid && UserNameInput.dirty"
+        >Invalid User-Name Format !</small
+      >
+      <!-- Phone-Number -->
+      <label for="phoneNumber">Phone-Number</label>
+      <input
+        type="tel"
+        id="phoneNumber"
+        name="phoneNumber"
+        placeholder="Phone-Number"
+        required
+        [(ngModel)]="user.phoneNumber"
+        required
+        #phonelInput="ngModel"
+        minlength="11"
+        maxlength="11"
+      />
+      <small *ngIf="userForm && phonelInput.invalid && phonelInput.dirty"
+        >Invalid Phone-Number Format !</small
+      >
+      <!-- Email-Address -->
+      <label for="email">Email-Address</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="E-mail Address"
+        required
+        [(ngModel)]="user.email"
+        required
+        #emailInput="ngModel"
+        email
+      />
+      <small *ngIf="userForm && emailInput.invalid && emailInput.dirty"
+        >Invalid Email Format !</small
+      >
+      <!-- Gender -->
+      <label for="gender">Gender</label>
+      <select id="gender" name="gender" required>
+        <option value="MALE">Male</option>
+        <option value="FEMALE">Female</option>
+      </select>
+      <!-- Country -->
+      <label for="country">Country</label>
+      <select id="country" name="country" required>
+        <option value="" disabled selected>Country</option>
+        <option value="EG">Egypt</option>
+        <option value="US">United States</option>
+        <option value="UK">England</option>
+      </select>
+      <!-- DOB -->
+      <label>Date of birth</label>
+      <div class="dob-container">
+        <select id="day" name="day">
+          <option value="" disabled selected>DD</option>
+          <option value="U1">1</option>
+          <option value="U2">2</option>
+          <option value="U3">3</option>
+          <option value="U4">4</option>
+          <option value="U5">5</option>
+          <option value="U6">6</option>
+          <option value="U7">7</option>
+          <option value="U8">8</option>
+          <option value="U9">9</option>
+          <option value="U10">10</option>
+          <option value="U11">11</option>
+          <option value="U12">12</option>
+          <option value="U13">13</option>
+          <option value="U14">14</option>
+          <option value="U15">15</option>
+          <option value="U16">16</option>
+          <option value="U17">17</option>
+          <option value="U18">18</option>
+          <option value="U19">19</option>
+          <option value="U20">20</option>
+          <option value="U21">21</option>
+          <option value="U22">22</option>
+          <option value="U23">23</option>
+          <option value="U24">24</option>
+          <option value="U25">25</option>
+          <option value="U26">26</option>
+          <option value="U27">27</option>
+        </select>
+        <select id="month" name="month" required>
+          <option value="" disabled selected>Month</option>
+          <option value="1">January</option>
+          <option value="2">February</option>
+          <option value="3">March</option>
+          <option value="4">April</option>
+          <option value="5">May</option>
+          <option value="6">June</option>
+          <option value="7">July</option>
+          <option value="8">August</option>
+          <option value="9">September</option>
+          <option value="10">October</option>
+          <option value="11">November</option>
+          <option value="12">December</option>
+        </select>
+        <select id="year" name="year" required>
+          <option value="" disabled selected>YYYY</option>
+          <option value="U1">2000</option>
+          <option value="U1">2001</option>
+          <option value="U1">2002</option>
+          <option value="U1">2003</option>
+          <option value="U1">2004</option>
+          <option value="U1">2005</option>
+          <option value="U1">2006</option>
+          <option value="U1">2007</option>
+          <option value="U1">2008</option>
+          <option value="U1">2009</option>
+          <option value="U1">2010</option>
+          <option value="U1">2011</option>
+          <option value="U1">2012</option>
+          <option value="U1">2013</option>
+          <option value="U1">2014</option>
+          <option value="U1">2015</option>
+          <option value="U1">2016</option>
+          <option value="U1">2017</option>
+          <option value="U1">2018</option>
+          <option value="U1">2019</option>
+          <option value="U1">2020</option>
+          <option value="U1">2021</option>
+          <option value="U1">2022</option>
+          <option value="U1">2023</option>
+          <option value="U1">2024</option>
+        </select>
+      </div>
+      <!-- Password (issue)-->
+      <label for="password"> Password </label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="*"
+        required
+        [(ngModel)]="user.password"
+        #passwordlInput="ngModel"
+        minlength="8"
+        maxlength="8"
+      />
+      <small *ngIf="userForm && passwordlInput.invalid && passwordlInput.dirty"
+        >Invalid Password Format !</small
+      >
+      <!--  Confirm Password (issue) -->
+      <label for="confirmPassword"> Confirm Password </label>
+      <input
+        type="password"
+        id="confirmPassword"
+        name="confirmPassword"
+        placeholder="*"
+        required
+        [(ngModel)]="user.confirmPassword"
+        #confirm="ngModel"
+        minlength="8"
+        maxlength="8"
+      />
+      <small *ngIf="userForm && confirm.invalid && confirm.dirty">
+        Password does not match!</small
+      >
+      <!--Create Account Button  -->
+      <button
+        type="submit"
+        [disabled]="userForm.invalid"
+        for="A"
+        routerLink="/home-page"
+      >
+        Create Account
+      </button>
+    </form>
+    <p style="text-align: center">
+      Already have an account? <a routerLink="/Login">Login</a>
+    </p>
+  </div>
+</div>
+<!-- Footer -->
+<footer>
+  <p style="text-align: center">©Speedo Transfer Payments Limited 2024</p>
+</footer>

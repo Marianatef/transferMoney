@@ -15,32 +15,28 @@ import { MoneyTransferComponent } from './money-transfer/money-transfer.componen
 import { MyAccountComponent } from './my-account/my-account.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { NavbarComponent } from './navbar/navbar.component';
+import { FooterComponent } from './footer/footer.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { LoginComponent } from './login/login.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { CreatePasswordComponent } from './create-password/create-password.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {
-    path: 'page1',
+    path: 'transfermoney',
     component: MoneyTransferComponent,
-    children: [
-      // { path: 'component1', component: Page1Component1 },
-      { path: 'component2', component: MoneyHeaderComponent },
-      { path: 'component3', component: TransferComponent },
-      { path: 'component4', component: MobileAppComponent },
-      // { path: 'component5', component: Page1Component5 }
-    ],
   },
   {
-    path: 'page2',
+    path: 'myaccount',
     component: MyAccountComponent,
-    children: [
-      // { path: 'component1', component: Page2Component1 },
-      { path: 'component2', component: MoneyHeaderComponent },
-      { path: 'component3', component: AccountComponent },
-      { path: 'component4', component: MobileAppComponent },
-      // { path: 'component5', component: Page2Component5 }
-    ],
   },
-  { path: '', redirectTo: '/page1', pathMatch: 'full' },
+  {
+    path: 'home',
+    component: HomeComponent,
+  },
+  { path: '', redirectTo: '/transfermoney', pathMatch: 'full' },
 ];
 
 @NgModule({
@@ -52,14 +48,20 @@ const routes: Routes = [
     AccountComponent,
     MoneyTransferComponent,
     MyAccountComponent,
-
+    NavbarComponent,
+    FooterComponent,
+    SignUpComponent,
+    LoginComponent,
+    HomePageComponent,
+    CreatePasswordComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(routes),
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   exports: [RouterModule],
   providers: [provideClientHydration(), provideAnimationsAsync()],

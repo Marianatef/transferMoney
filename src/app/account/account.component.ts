@@ -30,7 +30,7 @@ export class AccountComponent {
     lastName: 'Smith',
     phone: '+880125412624',
     email: 'jhonathonsmith@gmail.com',
-    balance: 1000
+    balance: 1000,
   };
 
   changePassword = {
