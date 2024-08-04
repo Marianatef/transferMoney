@@ -8,14 +8,15 @@
   height: 700px;
   background-color: #f9f9f9;
   color: black;
-
+  margin: 10px;
   display: flex;
   flex-direction: column;
   border-right: 1px rgb(206, 206, 206) solid;
 }
 
 .menu-item {
-  padding: 15px;
+  padding-right: 10px;
+  padding: 15px 0;
   cursor: pointer;
   transition: background-color 0.3s ease;
   border-bottom: 1px rgb(206, 206, 206) solid;
@@ -28,7 +29,7 @@
 .first {
   background-color: #8e2c2c;
   color: white;
-  padding: 15px;
+  padding: 15px 0;
   cursor: pointer;
   border-bottom: 1px rgb(206, 206, 206) solid;
   width: 100%;
@@ -79,16 +80,27 @@
 .account-info {
   padding: 10px;
   background-color: rgba(243, 233, 235, 0.9);
+  display: flex;
+  justify-content: space-between;
+}
+
+.copy {
+  margin-top: 5px;
+  color: #666;
 }
 
 .details {
   background-color: rgba(255, 255, 255, 1);
   padding: 5px 15px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .recipient-name {
   color: #666;
   padding: 5px 15px;
+  display: flex;
+  justify-content: space-between;
 }
 .settings {
   width: 750px;
@@ -106,7 +118,9 @@
   border-bottom: #8e2c2c solid 2px;
   cursor: pointer;
 }
-
+.form {
+  display: flex;
+}
 .settings-form {
   margin-top: 20px;
   width: 750px;

@@ -71,11 +71,9 @@
           <div class="recipient-info">
             <h4>
               Recipient Information
-              <span
-                class="favorite hover:bg-zinc-100"
-                (click)="toggleFavoriteList()"
+              <span class="favorite" (click)="toggleFavoriteList()"
                 ><i class="fa-regular fa-star"></i> Favourite
-                <i class="fa-solid fa-angle-right text-sm"></i
+                <i class="fa-solid fa-angle-right"></i
               ></span>
             </h4>
             <div *ngIf="showFavoriteList" class="modal-overlay">
@@ -89,7 +87,7 @@
                 <div class="modal-body">
                   <ul>
                     <li *ngFor="let favorite of favoriteList">
-                      <div class="favorite-item mb-4">
+                      <div class="favorite-item">
                         <div class="bank-icon"></div>
                         <div class="favorite-details">
                           <div class="favorite-name">{{ favorite.name }}</div>
@@ -126,11 +124,9 @@
           <h2 class="transfer-amount">
             {{ amount }} {{ selectedSendCurrency }}
           </h2>
-          <p class="transfer-details text-zinc-500">Transfer amount</p>
+          <p class="transfer-details">Transfer amount</p>
 
-          <div
-            class="total-amount flex justify-between border-b-2 text-zinc-500"
-          >
+          <div class="total-amount">
             <span>Total amount</span>
             <span>{{ recipientAmount }} {{ selectedReceiveCurrency }}</span>
           </div>
@@ -138,9 +134,9 @@
           <div class="account-info from-account">
             <div class="account-card">
               <div class="account-icon"></div>
-              <div class="account-details flex flex-col">
+              <div class="account-details">
                 <span class="account-label">From</span>
-                <span class="account-name mb-3">{{ senderName }}</span>
+                <span class="account-name">{{ senderName }}</span>
                 <span class="account-number">Account xxxx7890</span>
               </div>
             </div>
@@ -153,53 +149,50 @@
           <div class="account-info to-account">
             <div class="account-card">
               <div class="account-icon"></div>
-              <div class="account-details flex flex-col">
+              <div class="account-details">
                 <span class="account-label">To</span>
-                <span class="account-name mb-3">{{ recipientName }}</span>
+                <span class="account-name">{{ recipientName }}</span>
                 <span class="account-number">{{ recipientAccount }}</span>
               </div>
             </div>
           </div>
 
-          <div class="button-group flex flex-col">
-            <button class="btn btn-confirm mb-4" (click)="confirmTransfer()">
+          <div class="button-group">
+            <button class="btn btn-confirm" (click)="confirmTransfer()">
               Confirm
             </button>
             <button class="btn btn-back" (click)="setStep(1)">Back</button>
           </div>
         </div>
       </div>
-      <div *ngSwitchCase="3" class="w-[500px] h-[700px]">
-
-        <div class="success-icon text-center">
-          <i class="fa fa-check-circle text-red-900 text-4xl"></i>
+      <div *ngSwitchCase="3" class="payment">
+        <div class="success-icon">
+          <i class="fa fa-check-circle"></i>
         </div>
-        <h2 class="text-lg text-center">Your transfer was successful</h2>
-        <h3 class="text-lg text-center">
-          {{ amount }} {{ selectedReceiveCurrency }}
-        </h3>
+        <h2>Your transfer was successful</h2>
+        <h2>{{ amount }} {{ selectedReceiveCurrency }}</h2>
         <div class="transfer-details">
           <div class="account-info from-account">
             <div class="account-card">
               <div class="account-icon"></div>
-              <div class="account-details flex flex-col">
+              <div class="account-details">
                 <span class="account-label">From</span>
-                <span class="account-name mb-3">{{ senderName }}</span>
+                <span class="account-name">{{ senderName }}</span>
                 <span class="account-number">Account xxxx7890</span>
               </div>
             </div>
           </div>
 
-          <div class="transfer-icon text-center">
+          <div class="transfer-icon">
             <i class="fa-solid fa-arrow-right-arrow-left"></i>
           </div>
 
           <div class="account-info to-account">
             <div class="account-card">
               <div class="account-icon"></div>
-              <div class="account-details flex flex-col">
+              <div class="account-details">
                 <span class="account-label">To</span>
-                <span class="account-name mb-3">{{ recipientName }}</span>
+                <span class="account-name">{{ recipientName }}</span>
                 <span class="account-number">{{ recipientAccount }}</span>
               </div>
             </div>
@@ -220,8 +213,8 @@
           </div>
         </div>
 
-        <div class="form-actions flex flex-col">
-          <button class="btn-primary mb-4" (click)="navigateToHome()">
+        <div class="form-actions">
+          <button class="btn-primary" (click)="navigateToHome()">
             Back to Home
           </button>
           <button class="btn-secondary" (click)="addToFavourite()">

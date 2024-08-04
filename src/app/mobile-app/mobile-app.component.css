@@ -1,3 +1,7 @@
+a {
+  text-decoration: none;
+  color: white;
+}
 .mobile-app {
   background-color: rgba(243, 233, 235, 1);
   width: 100%;
@@ -23,11 +27,50 @@
   background-color: black;
   color: white;
   border-radius: 10px;
-
-  width: 140px;
-  height: 50px;
+  margin-right: 10px;
+  width: 150px;
+  height: 60px;
 }
 .download .link {
   display: flex;
   flex-direction: row;
+}
+
+.content h3 {
+  color: rgb(157, 8, 8);
+  font-size: large;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.list {
+  margin-bottom: 10px;
+}
+
+.content pre {
+  margin-bottom: 10px;
+}
+
+.content .paragraph {
+  font-weight: 600;
+  font-size: 30px;
+}
+.list i {
+  color: brown;
+}
+
+.links {
+  display: flex;
+}
+
+.links i {
+  font-size: xx-large;
+  margin: 10px;
+}
+
+.text .first {
+  font-size: x-small;
+}
+.text .name {
+  margin-top: 10px;
 }

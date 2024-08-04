@@ -45,15 +45,15 @@
       <h1>Payments History</h1>
       <div *ngIf="payments.length; else noPayments">
         <div *ngFor="let payment of payments" class="payment-item">
-          <div class="account-info flex justify-between">
+          <div class="account-info">
             <div>Account Number: {{ payment.accountNumber }}</div>
-            <i class="fa-regular fa-copy mt-1 text-zinc-500"></i>
+            <i class="copy fa-regular fa-copy"></i>
           </div>
-          <div class="details flex flex-row justify-between">
+          <div class="details">
             <div>Account Details</div>
             <div>Total Price : {{ payment.amount }}USD</div>
           </div>
-          <div class="recipient-name flex flex-row justify-between">
+          <div class="recipient-name">
             <div>Recipient Name</div>
             <div>{{ payment.recipientName }}</div>
           </div>
@@ -85,7 +85,7 @@
         <div class="form-content">
           <div *ngIf="settingsTab === 'profile'">
             <form>
-              <div class="flex">
+              <div class="form">
                 <div class="form-group">
                   <label for="username">User name</label>
                   <input
@@ -105,7 +105,7 @@
                   />
                 </div>
               </div>
-              <div class="flex">
+              <div class="form">
                 <div class="form-group">
                   <label for="phone">Phone</label>
                   <input
@@ -132,7 +132,7 @@
           </div>
           <div *ngIf="settingsTab === 'change-password'">
             <form>
-              <div class="flex">
+              <div class="form">
                 <div class="form-group">
                   <label for="current-password">Current Password</label>
                   <input

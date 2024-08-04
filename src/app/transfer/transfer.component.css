@@ -59,7 +59,7 @@
   right: 0;
   height: 1.5px;
   background-color: #e0e0e0;
-  z-index: 1;
+
   width: 50px;
   margin-left: -1.5rem;
 }
@@ -277,6 +277,7 @@
   background-color: #efefef;
   border-radius: 5px;
   justify-items: space-between;
+  margin-bottom: 10px;
 }
 
 .bank-icon {
@@ -304,6 +305,10 @@
   color: #666;
 }
 
+.favorite:hover {
+  background-color: #e0e0e0;
+}
+
 .confirmation-step {
   text-align: center;
   margin-top: 20px;
@@ -320,6 +325,12 @@
 .transfer-details,
 .total-amount {
   margin: 10px 0;
+  color: #666;
+}
+.total-amount {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
 }
 
 .account-info {
@@ -353,11 +364,14 @@
 
 .account-details {
   text-align: left;
+  display: flex;
+  flex-direction: column;
 }
 
 .account-name {
   font-weight: bold;
   font-size: 16px;
+  margin-bottom: 10px;
 }
 
 .account-number {
@@ -368,10 +382,12 @@
 .transfer-icon img {
   width: 24px;
   margin: 20px 0;
+  text-align: center;
 }
 
 .button-group {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   margin-top: 30px;
 }
@@ -382,6 +398,7 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
 .btn-confirm {
@@ -415,6 +432,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: 30px;
+  flex-direction: column;
 }
 
 .form-actions button {
@@ -428,6 +446,7 @@
 .btn-primary {
   background-color: #800d1a;
   color: white;
+  margin-bottom: 10px;
 }
 
 .form-actions .btn-secondary {
@@ -435,7 +454,20 @@
   border: 2px solid #800d1a;
   color: #800d1a;
 }
+.payment {
+  width: 500px;
+  height: 700px;
+  text-align: center;
+}
 
+.success-icon {
+  text-align: center;
+  color: #800d1a;
+  font-size: 34px;
+}
+.payment h2 {
+  font-size: 28px;
+}
 /* #currency-receive {
     background: url('../../assets/img6.png') no-repeat;
     background-size: contain;

@@ -1,11 +1,11 @@
 <div class="header">
   <div class="content">
     <h2>{{ title }}</h2>
-    <div class="breadcrumb mb-3">
+    <div class="breadcrumb">
       <ng-container *ngIf="breadcrumb.length > 0">
         <ng-container *ngFor="let crumb of breadcrumb; let last = last">
           <a *ngIf="!last" [routerLink]="crumb">{{ crumb }} &bull; </a>
-          <span *ngIf="last" class="text-red-900">{{ crumb }}</span>
+          <span *ngIf="last" class="last">{{ crumb }}</span>
         </ng-container>
       </ng-container>
     </div>
