@@ -22,6 +22,7 @@ import { LoginComponent } from './login/login.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { CreatePasswordComponent } from './create-password/create-password.component';
 import { HomeComponent } from './home/home.component';
+import { sign } from 'crypto';
 
 const routes: Routes = [
   {
@@ -36,7 +37,16 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
   },
-  { path: '', redirectTo: '/transfermoney', pathMatch: 'full' },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
+    path: 'register',
+    component: SignUpComponent,
+  },
+
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 
 @NgModule({
