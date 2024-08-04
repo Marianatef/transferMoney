@@ -1,0 +1,33 @@
+.mobile-app {
+  background-color: rgba(243, 233, 235, 1);
+  width: 100%;
+  height: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-around;
+}
+.img {
+  background: url(../../assets/img3.png) no-repeat center/cover;
+  width: 600px;
+  height: 600px;
+  border-radius: 2%;
+}
+.content {
+  align-self: stretch;
+  margin-top: 10%;
+  font-size: medium;
+}
+
+.download {
+  background-color: black;
+  color: white;
+  border-radius: 10px;
+
+  width: 140px;
+  height: 50px;
+}
+.download .link {
+  display: flex;
+  flex-direction: row;
+}

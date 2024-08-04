@@ -1,0 +1,236 @@
+<div class="transfer">
+  <div class="stepper">
+    <div
+      class="step"
+      [ngClass]="{ active: isStepActive(1), completed: isStepCompleted(1) }"
+    >
+      <div class="circle">01</div>
+      <div class="step-title">Amount</div>
+    </div>
+
+    <div
+      class="step"
+      [ngClass]="{ active: isStepActive(2), completed: isStepCompleted(2) }"
+    >
+      <div class="circle">02</div>
+      <div class="step-title">Confirmation</div>
+      <div class="line"></div>
+    </div>
+
+    <div
+      class="step"
+      [ngClass]="{ active: isStepActive(3), completed: isStepCompleted(3) }"
+    >
+      <div class="circle">03</div>
+      <div class="step-title">Payment</div>
+      <div class="line"></div>
+    </div>
+  </div>
+
+  <div class="step-content">
+    <ng-container [ngSwitch]="currentStep">
+      <div *ngSwitchCase="1" class="amount-step">
+        <h2>How much are you sending?</h2>
+        <p class="amount-rate">Rate guaranteed (2h)</p>
+        <h3>1 USD = 48.4220 EGP</h3>
+        <form>
+          <div class="form-group">
+            <label for="amount">You send</label>
+            <div class="input-group">
+              <input
+                type="number"
+                id="amount"
+                name="amount"
+                placeholder="1000"
+              />
+              <select id="currency-send">
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="KSR">KSR</option>
+                <option value="EGP">EGP</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="recipientAmount">Recipient Gets</label>
+            <div class="input-group">
+              <input
+                type="number"
+                id="recipientAmount"
+                name="recipientAmount"
+                placeholder="47,488.42"
+              />
+              <select id="currency-receive">
+                <option value="EGP" data-flag="eg">EGP</option>
+                <option value="USD" data-flag="us">USD</option>
+                <option value="EUR" data-flag="eu">EUR</option>
+                <option value="KSR" data-flag="ksr">KSR</option>
+              </select>
+            </div>
+          </div>
+          <div class="recipient-info">
+            <h4>
+              Recipient Information
+              <span
+                class="favorite hover:bg-zinc-100"
+                (click)="toggleFavoriteList()"
+                ><i class="fa-regular fa-star"></i> Favourite
+                <i class="fa-solid fa-angle-right text-sm"></i
+              ></span>
+            </h4>
+            <div *ngIf="showFavoriteList" class="modal-overlay">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5><i class="fa-regular fa-star"></i> Favourite List</h5>
+                  <button class="close" (click)="toggleFavoriteList()">
+                    ×
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <ul>
+                    <li *ngFor="let favorite of favoriteList">
+                      <div class="favorite-item mb-4">
+                        <div class="bank-icon"></div>
+                        <div class="favorite-details">
+                          <div class="favorite-name">{{ favorite.name }}</div>
+                          <div class="favorite-account">
+                            {{ favorite.account }}
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="recipientName">Recipient Name</label>
+              <input type="text" id="recipientName" name="recipientName" />
+            </div>
+            <div class="form-group">
+              <label for="recipientAccount">Recipient Account</label>
+              <input
+                type="text"
+                id="recipientAccount"
+                name="recipientAccount"
+              />
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="button" (click)="setStep(2)">Continue</button>
+          </div>
+        </form>
+      </div>
+      <div *ngSwitchCase="2">
+        <!-- Confirmation Step Content -->
+        <div class="confirmation-step">
+          <h2 class="transfer-amount">
+            {{ amount }} {{ selectedSendCurrency }}
+          </h2>
+          <p class="transfer-details text-zinc-500">Transfer amount</p>
+
+          <div
+            class="total-amount flex justify-between border-b-2 text-zinc-500"
+          >
+            <span>Total amount</span>
+            <span>{{ recipientAmount }} {{ selectedReceiveCurrency }}</span>
+          </div>
+
+          <div class="account-info from-account">
+            <div class="account-card">
+              <div class="account-icon"></div>
+              <div class="account-details flex flex-col">
+                <span class="account-label">From</span>
+                <span class="account-name mb-3">{{ senderName }}</span>
+                <span class="account-number">Account xxxx7890</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="transfer-icon">
+            <i class="fa-solid fa-arrow-right-arrow-left"></i>
+          </div>
+
+          <div class="account-info to-account">
+            <div class="account-card">
+              <div class="account-icon"></div>
+              <div class="account-details flex flex-col">
+                <span class="account-label">To</span>
+                <span class="account-name mb-3">{{ recipientName }}</span>
+                <span class="account-number">{{ recipientAccount }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="button-group flex flex-col">
+            <button class="btn btn-confirm mb-4" (click)="confirmTransfer()">
+              Confirm
+            </button>
+            <button class="btn btn-back" (click)="setStep(1)">Back</button>
+          </div>
+        </div>
+      </div>
+      <div *ngSwitchCase="3" class="w-[500px] h-[700px]">
+        <!-- Payment Step Content -->
+
+        <div class="success-icon text-center">
+          <i class="fa fa-check-circle text-red-900 text-4xl"></i>
+        </div>
+        <h2 class="text-lg text-center">Your transfer was successful</h2>
+        <h3 class="text-lg text-center">
+          {{ amount }} {{ selectedReceiveCurrency }}
+        </h3>
+        <div class="transfer-details">
+          <div class="account-info from-account">
+            <div class="account-card">
+              <div class="account-icon"></div>
+              <div class="account-details flex flex-col">
+                <span class="account-label">From</span>
+                <span class="account-name mb-3">{{ senderName }}</span>
+                <span class="account-number">Account xxxx7890</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="transfer-icon text-center">
+            <i class="fa-solid fa-arrow-right-arrow-left"></i>
+          </div>
+
+          <div class="account-info to-account">
+            <div class="account-card">
+              <div class="account-icon"></div>
+              <div class="account-details flex flex-col">
+                <span class="account-label">To</span>
+                <span class="account-name mb-3">{{ recipientName }}</span>
+                <span class="account-number">{{ recipientAccount }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="detail-row">
+            <span class="detail-label">Transfer amount</span>
+            <span class="detail-value"
+              >{{ amount }} {{ selectedReceiveCurrency }}</span
+            >
+          </div>
+
+          <div class="detail-row">
+            <span class="detail-label">Fees</span>
+            <span class="detail-value"
+              >{{ fees }} {{ selectedSendCurrency }}</span
+            >
+          </div>
+        </div>
+
+        <div class="form-actions flex flex-col">
+          <button class="btn-primary mb-4" (click)="navigateToHome()">
+            Back to Home
+          </button>
+          <button class="btn-secondary" (click)="addToFavourite()">
+            Add To Favourite
+          </button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

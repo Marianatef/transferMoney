@@ -1,0 +1,199 @@
+.profile-container {
+  display: flex;
+  padding: 50px;
+}
+
+.sidebar {
+  width: 300px;
+  height: 700px;
+  background-color: #f9f9f9;
+  color: black;
+
+  display: flex;
+  flex-direction: column;
+  border-right: 1px rgb(206, 206, 206) solid;
+}
+
+.menu-item {
+  padding: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-bottom: 1px rgb(206, 206, 206) solid;
+  width: 100%;
+}
+
+.menu-item:hover {
+  background-color: #dfdfdf;
+}
+.first {
+  background-color: #8e2c2c;
+  color: white;
+  padding: 15px;
+  cursor: pointer;
+  border-bottom: 1px rgb(206, 206, 206) solid;
+  width: 100%;
+}
+.profile-details {
+  flex: 1;
+  padding: 20px;
+  width: 400px;
+  height: 400px;
+}
+
+.profile-details h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.profile-details h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.balance-label {
+  font-size: 20px;
+  color: #8e2c2c;
+}
+
+.detail {
+  margin-bottom: 10px;
+  color: #666;
+}
+
+.detail span {
+  color: black;
+  margin-right: 10px;
+}
+
+.payment {
+  width: 800px;
+}
+
+.payment-item {
+  margin-bottom: 10px;
+  padding: 15px;
+}
+
+.account-info {
+  padding: 10px;
+  background-color: rgba(243, 233, 235, 0.9);
+}
+
+.details {
+  background-color: rgba(255, 255, 255, 1);
+  padding: 5px 15px;
+}
+
+.recipient-name {
+  color: #666;
+  padding: 5px 15px;
+}
+.settings {
+  width: 750px;
+  height: 400px;
+  padding: 10px;
+}
+.item {
+  font-size: 20px;
+  font-weight: 400;
+  color: #666;
+}
+.item.active,
+.item:hover {
+  color: #8e2c2c;
+  border-bottom: #8e2c2c solid 2px;
+  cursor: pointer;
+}
+
+/* Existing styles */
+.profile-container {
+  display: flex;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #a32a29;
+  padding: 20px;
+  color: white;
+}
+
+.menu-item {
+  margin: 10px 0;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.menu-item.active {
+  background-color: #8e2c2c;
+}
+
+.profile-details {
+  flex: 1;
+  padding: 20px;
+}
+
+.profile-details h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.profile-details h2 {
+  font-size: 36px;
+  color: #a32a29;
+  margin-bottom: 20px;
+}
+
+.balance-label {
+  font-size: 18px;
+  color: #8e2c2c;
+}
+
+.detail {
+  margin-bottom: 10px;
+}
+
+.detail span {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.payment-item {
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  padding: 15px;
+  background-color: #f1f1f1;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.account-info {
+  flex: 1;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.details {
+  flex: 2;
+  font-size: 14px;
+  color: #666;
+}
+
+.total-price {
+  flex: 1;
+  text-align: right;
+  font-size: 16px;
+}
+
+.total-price strong {
+  display: block;
+  margin-bottom: 5px;
+}
+
+

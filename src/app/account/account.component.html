@@ -1,0 +1,140 @@
+<div class="profile-container">
+  <div class="sidebar">
+    <div
+      class="first"
+      [class.active]="currentSection === 'profile'"
+      (click)="setSection('profile')"
+    >
+      My profile
+    </div>
+    <div
+      class="menu-item"
+      [class.active]="currentSection === 'payments-history'"
+      (click)="setSection('payments-history')"
+    >
+      Payments history
+    </div>
+    <div
+      class="menu-item"
+      [class.active]="currentSection === 'settings'"
+      (click)="setSection('settings')"
+    >
+      Settings
+    </div>
+    <div
+      class="menu-item"
+      [class.active]="currentSection === 'change-password'"
+      (click)="setSection('change-password')"
+    >
+      Change password
+    </div>
+  </div>
+  <div class="profile-details">
+    <div *ngIf="currentSection === 'profile'">
+      <h1>My Profile</h1>
+      <h2>10000$ <span class="balance-label">Balance</span></h2>
+      <div class="detail"><span>First Name :</span> Jonathon Smith</div>
+      <div class="detail"><span>Email :</span> jhonathonsmithgmail.com</div>
+      <div class="detail"><span>Phone :</span> +880125412624</div>
+      <div class="detail"><span>Gender :</span> Male</div>
+    </div>
+
+    <div *ngIf="currentSection === 'payments-history'" class="payment">
+      <h1>Payments History</h1>
+      <div *ngIf="payments.length; else noPayments">
+        <div *ngFor="let payment of payments" class="payment-item">
+          <div class="account-info flex justify-between">
+            <div>Account Number: {{ payment.accountNumber }}</div>
+            <i class="fa-regular fa-copy mt-1 text-zinc-500"></i>
+          </div>
+          <div class="details flex flex-row justify-between">
+            <div>Account Details</div>
+            <div>Total Price : {{ payment.amount }}USD</div>
+          </div>
+          <div class="recipient-name flex flex-row justify-between">
+            <div>Recipient Name</div>
+            <div>{{ payment.recipientName }}</div>
+          </div>
+        </div>
+      </div>
+      <ng-template #noPayments>
+        <p>No payment history available.</p>
+      </ng-template>
+    </div>
+
+    <!-- <div *ngIf="currentSection === 'settings'" class="settings">
+      <h1>Settings</h1>
+      <div class="nav-top flex">
+        <div class="item">Profile</div>
+        <div class="item ml-14">Change password</div>
+      </div>
+    </div> -->
+
+    <div *ngIf="currentSection === 'settings'">
+      <h1>Settings</h1>
+      <div class="settings-form">
+        <div class="tabs">
+          <div 
+            class="tab" 
+            [class.active]="settingsTab === 'profile'" 
+            (click)="setSettingsTab('profile')">
+            Profile
+          </div>
+          <div 
+            class="tab" 
+            [class.active]="settingsTab === 'change-password'" 
+            (click)="setSettingsTab('change-password')">
+            Change password
+          </div>
+        </div>
+        <div class="form-content">
+          <div *ngIf="settingsTab === 'profile'">
+            <form>
+              <div class="form-group">
+                <label for="username">User name</label>
+                <input type="text" id="username" [(ngModel)]="userProfile.username" name="username">
+              </div>
+              <div class="form-group">
+                <label for="lastname">Last name</label>
+                <input type="text" id="lastname" [(ngModel)]="userProfile.lastName" name="lastname">
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="text" id="phone" [(ngModel)]="userProfile.phone" name="phone">
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" id="email" [(ngModel)]="userProfile.email" name="email">
+              </div>
+              <button type="button" (click)="updateProfile()">Update Profile</button>
+            </form>
+          </div>
+          <div *ngIf="settingsTab === 'change-password'">
+            <form>
+              <!-- Add fields for changing password -->
+              <div class="form-group">
+                <label for="current-password">Current Password</label>
+                <input type="password" id="current-password" [(ngModel)]="changePassword.current" name="current-password">
+              </div>
+              <div class="form-group">
+                <label for="new-password">New Password</label>
+                <input type="password" id="new-password" [(ngModel)]="changePassword.new" name="new-password">
+              </div>
+              <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" [(ngModel)]="changePassword.confirm" name="confirm-password">
+              </div>
+              <button type="button" (click)="changeUserPassword()">Change Password</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="currentSection === 'change-password'">
+      <h1>Change Password</h1>
+      <!-- Add content for changing password -->
+      <p>Change password content goes here.</p>
+    </div>
+  </div>
+</div>

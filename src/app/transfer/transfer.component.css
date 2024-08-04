@@ -1,0 +1,459 @@
+.transfer {
+  padding: 2rem 0;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.stepper {
+  display: flex;
+  margin-bottom: 2rem;
+  position: relative;
+  width: 300px;
+}
+
+.stepper .step {
+  text-align: center;
+  position: relative;
+  color: #aaa;
+  transition: color 0.3s;
+  flex: 1;
+}
+
+.stepper .step .circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: #e0e0e0 solid;
+  color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.stepper .step.active .circle,
+.stepper .step.completed .circle {
+  border: #b3222b solid;
+  color: #b3222b;
+}
+
+.stepper .step .step-title {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+.stepper .step.active .step-title,
+.stepper .step.completed .step-title {
+  color: black;
+}
+
+.stepper .line {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background-color: #e0e0e0;
+  z-index: 1;
+  width: 50px;
+  margin-left: -1.5rem;
+}
+
+.stepper .step.completed + .step .line,
+.stepper .step.active + .step .line {
+  background-color: #b3222b;
+}
+
+.amount-step {
+  width: 500px;
+  height: 700px;
+}
+
+.amount-step h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #333;
+  font-weight: bold;
+  font-size: xx-large;
+}
+.amount-step h3 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #333;
+  font-weight: 500;
+  font-size: x-large;
+}
+.amount-step .amount-rate {
+  text-align: center;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.amount-step form .form-group {
+  margin-bottom: 1rem;
+}
+
+.amount-step form .form-group label {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.amount-step form .input-group {
+  display: flex;
+  align-items: center;
+}
+
+.amount-step form .input-group input,
+.amount-step form .input-group select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.amount-step form .input-group input {
+  flex: 1;
+}
+
+.amount-step form .input-group select {
+  flex: none;
+  width: 100px;
+  padding-left: 10px;
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: 90%;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.amount-step .recipient-info {
+  text-align: left;
+  margin-top: 2rem;
+}
+
+.amount-step .recipient-info h4 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.amount-step .recipient-info .favorite {
+  color: #b3222b;
+  cursor: pointer;
+}
+
+.amount-step .recipient-info .form-group label {
+  font-size: 0.9rem;
+}
+
+.amount-step .recipient-info .form-group input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.amount-step .form-actions {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.amount-step .form-actions button {
+  background-color: #b3222b;
+  color: #fff;
+  padding: 0.5rem 2rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 100%;
+}
+/* .select-currency {
+    position: relative;
+    width: 80px;
+  }
+  
+  .select-currency select {
+    width: 100%;
+    padding-left: 30px;
+  }
+  
+  .select-currency option[data-image] {
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    padding-left: 30px;
+  }
+  
+  .select-currency option[data-image="USD"] {
+    background-image: url('/assets/flags/us.png');
+  }
+  
+  .select-currency option[data-image="EUR"] {
+    background-image: url('/assets/flags/eu.png');
+  }
+  
+  .select-currency option[data-image="GBP"] {
+    background-image: url('/assets/flags/gb.png');
+  }
+  
+  .select-currency option[data-image="EGP"] {
+    background-image: url('../../assets/img4.jpeg');
+  }
+  
+  .select-currency option[data-image="INR"] {
+    background-image: url('/assets/flags/in.png');
+  }
+  
+  .select-currency option[data-image="PKR"] {
+    background-image: url('/assets/flags/pk.png');
+  } */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.modal-header h5 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #b3222b;
+}
+
+.modal-header .close {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modal-body {
+  max-height: 500px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.favorite-item {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background-color: #efefef;
+  border-radius: 5px;
+  justify-items: space-between;
+}
+
+.bank-icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 1rem;
+  margin-bottom: 5px;
+  background-image: url(../../assets/img5.png);
+  background-size: contain;
+  border-radius: 50%;
+}
+
+.favorite-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.favorite-name {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.favorite-account {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.confirmation-step {
+  text-align: center;
+  margin-top: 20px;
+  width: 500px;
+  height: 700px;
+}
+
+.transfer-amount {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.transfer-details,
+.total-amount {
+  margin: 10px 0;
+}
+
+.account-info {
+  margin: 20px 0;
+}
+
+.account-label {
+  font-weight: bold;
+  color: #800d1a;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.account-card {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.account-icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 15px;
+  background-image: url(../../assets/img5.png);
+  background-size: contain;
+  border-radius: 50%;
+}
+
+.account-details {
+  text-align: left;
+}
+
+.account-name {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.account-number {
+  color: #666;
+  font-size: 14px;
+}
+
+.transfer-icon img {
+  width: 24px;
+  margin: 20px 0;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-confirm {
+  background-color: #800d1a;
+  color: white;
+}
+
+.btn-back {
+  background-color: white;
+  border: 1px solid #800d1a;
+  color: #800d1a;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-top: 1px solid #e0e0e0;
+  font-size: 16px;
+}
+
+.detail-label {
+  color: #777;
+}
+
+.detail-value {
+  font-weight: bold;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.form-actions button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #800d1a;
+  color: white;
+}
+
+.form-actions .btn-secondary {
+  background-color: white;
+  border: 2px solid #800d1a;
+  color: #800d1a;
+}
+
+/* #currency-receive {
+    background: url('../../assets/img6.png') no-repeat;
+    background-size: contain;
+    padding-left: 30px; 
+  }
+  
+  #currency-receive .eg {
+    background-image: url('../../assets/img6.png');
+  }
+  
+  #currency-receive .us {
+    background-image: url('../../assets/img7.jpeg');
+  }
+  
+  #currency-receive option[data-flag="eu"] {
+    background-image: url('../../assets/img8.jpeg');
+  }
+  
+  #currency-receive option[data-flag="ksr"] {
+    background-image: url('../../assets/img9.jpeg');
+  } */
