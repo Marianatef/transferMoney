@@ -14,6 +14,8 @@ import { AccountComponent } from './account/account.component';
 import { MoneyTransferComponent } from './money-transfer/money-transfer.component';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 
 const routes: Routes = [
   {
@@ -50,8 +52,15 @@ const routes: Routes = [
     AccountComponent,
     MoneyTransferComponent,
     MyAccountComponent,
+
   ],
-  imports: [BrowserModule, AppRoutingModule, RouterModule.forRoot(routes), FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    RouterModule.forRoot(routes),
+    FormsModule,
+    HttpClientModule
+  ],
   exports: [RouterModule],
   providers: [provideClientHydration(), provideAnimationsAsync()],
   bootstrap: [AppComponent],

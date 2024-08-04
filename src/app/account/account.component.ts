@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { HeaderService } from '../../services/header.service';
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
@@ -9,22 +9,34 @@ export class AccountComponent {
   currentSection: string = 'profile';
   settingsTab: string = 'profile';
 
-  // Method to change the section
-  setSection(section: string): void {
-    this.currentSection = section;
+  constructor(private headerService: HeaderService) {}
+
+  ngOnInit() {
+    this.headerService.updateTitle('My Account');
+    this.headerService.updateBreadcrumb(['Home', 'My Account']);
   }
 
+  setSection(section: string) {
+    this.currentSection = section;
+    if (section === 'settings') {
+      this.settingsTab = 'profile';
+    } else if (section === 'change-password') {
+      this.currentSection = 'settings';
+      this.settingsTab = 'change-password';
+    }
+  }
   userProfile = {
     username: 'Jonathon',
     lastName: 'Smith',
     phone: '+880125412624',
-    email: 'jhonathonsmith@gmail.com'
+    email: 'jhonathonsmith@gmail.com',
+    balance: 1000
   };
 
   changePassword = {
     current: '',
     new: '',
-    confirm: ''
+    confirm: '',
   };
 
   payments = [
@@ -45,12 +57,10 @@ export class AccountComponent {
   }
 
   updateProfile(): void {
-    // Logic to update profile
     console.log('Profile updated:', this.userProfile);
   }
 
   changeUserPassword(): void {
-    // Logic to change user password
     if (this.changePassword.new === this.changePassword.confirm) {
       console.log('Password changed:', this.changePassword.new);
     } else {

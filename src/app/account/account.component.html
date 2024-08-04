@@ -32,7 +32,7 @@
   <div class="profile-details">
     <div *ngIf="currentSection === 'profile'">
       <h1>My Profile</h1>
-      <h2>10000$ <span class="balance-label">Balance</span></h2>
+      <h2>{{ userProfile.balance }}$ <span class="balance-label">Balance</span></h2>
       <div class="detail"><span>First Name :</span> Jonathon Smith</div>
       <div class="detail"><span>Email :</span> jhonathonsmithgmail.com</div>
       <div class="detail"><span>Phone :</span> +880125412624</div>
@@ -61,80 +61,104 @@
         <p>No payment history available.</p>
       </ng-template>
     </div>
-
-    <!-- <div *ngIf="currentSection === 'settings'" class="settings">
-      <h1>Settings</h1>
-      <div class="nav-top flex">
-        <div class="item">Profile</div>
-        <div class="item ml-14">Change password</div>
-      </div>
-    </div> -->
-
     <div *ngIf="currentSection === 'settings'">
       <h1>Settings</h1>
       <div class="settings-form">
         <div class="tabs">
-          <div 
-            class="tab" 
-            [class.active]="settingsTab === 'profile'" 
-            (click)="setSettingsTab('profile')">
+          <div
+            class="tab"
+            [class.active]="settingsTab === 'profile'"
+            (click)="setSettingsTab('profile')"
+          >
             Profile
           </div>
-          <div 
-            class="tab" 
-            [class.active]="settingsTab === 'change-password'" 
-            (click)="setSettingsTab('change-password')">
+          <div
+            class="tab"
+            [class.active]="settingsTab === 'change-password'"
+            (click)="setSettingsTab('change-password')"
+          >
             Change password
           </div>
         </div>
         <div class="form-content">
           <div *ngIf="settingsTab === 'profile'">
             <form>
-              <div class="form-group">
-                <label for="username">User name</label>
-                <input type="text" id="username" [(ngModel)]="userProfile.username" name="username">
+              <div class="flex">
+                <div class="form-group">
+                  <label for="username">User name</label>
+                  <input
+                    type="text"
+                    id="username"
+                    [(ngModel)]="userProfile.username"
+                    name="username"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="lastname">Last name</label>
+                  <input
+                    type="text"
+                    id="lastname"
+                    [(ngModel)]="userProfile.lastName"
+                    name="lastname"
+                  />
+                </div>
               </div>
-              <div class="form-group">
-                <label for="lastname">Last name</label>
-                <input type="text" id="lastname" [(ngModel)]="userProfile.lastName" name="lastname">
+              <div class="flex">
+                <div class="form-group">
+                  <label for="phone">Phone</label>
+                  <input
+                    type="text"
+                    id="phone"
+                    [(ngModel)]="userProfile.phone"
+                    name="phone"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input
+                    type="text"
+                    id="email"
+                    [(ngModel)]="userProfile.email"
+                    name="email"
+                  />
+                </div>
               </div>
-              <div class="form-group">
-                <label for="phone">Phone</label>
-                <input type="text" id="phone" [(ngModel)]="userProfile.phone" name="phone">
-              </div>
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" id="email" [(ngModel)]="userProfile.email" name="email">
-              </div>
-              <button type="button" (click)="updateProfile()">Update Profile</button>
+              <button type="button" (click)="updateProfile()">
+                Update Profile
+              </button>
             </form>
           </div>
           <div *ngIf="settingsTab === 'change-password'">
             <form>
-              <!-- Add fields for changing password -->
-              <div class="form-group">
-                <label for="current-password">Current Password</label>
-                <input type="password" id="current-password" [(ngModel)]="changePassword.current" name="current-password">
+              <div class="flex">
+                <div class="form-group">
+                  <label for="current-password">Current Password</label>
+                  <input
+                    type="password"
+                    id="current-password"
+                    [(ngModel)]="changePassword.current"
+                    name="current-password"
+                    placeholder="Type here"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="new-password">New Password</label>
+                  <input
+                    type="password"
+                    id="new-password"
+                    [(ngModel)]="changePassword.new"
+                    name="new-password"
+                    placeholder="Type here"
+                  />
+                </div>
               </div>
-              <div class="form-group">
-                <label for="new-password">New Password</label>
-                <input type="password" id="new-password" [(ngModel)]="changePassword.new" name="new-password">
-              </div>
-              <div class="form-group">
-                <label for="confirm-password">Confirm Password</label>
-                <input type="password" id="confirm-password" [(ngModel)]="changePassword.confirm" name="confirm-password">
-              </div>
-              <button type="button" (click)="changeUserPassword()">Change Password</button>
+              <button type="button" (click)="changeUserPassword()">
+                Change Password
+              </button>
             </form>
           </div>
         </div>
       </div>
-    </div>
-
-    <div *ngIf="currentSection === 'change-password'">
-      <h1>Change Password</h1>
-      <!-- Add content for changing password -->
-      <p>Change password content goes here.</p>
     </div>
   </div>
 </div>
