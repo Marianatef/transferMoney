@@ -26,11 +26,13 @@ export class AccountComponent {
     }
   }
   userProfile = {
+    fullName: 'Jonathon Smith',
     username: 'Jonathon',
     lastName: 'Smith',
     phone: '+880125412624',
     email: 'jhonathonsmith@gmail.com',
     balance: 1000,
+    gender: 'male',
   };
 
   changePassword = {

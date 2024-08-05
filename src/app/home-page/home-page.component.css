@@ -154,6 +154,7 @@ body {
 /* Features of services */
 #about {
   text-align: center;
+  height: 600px;
 }
 #about h3 {
   color: brown;

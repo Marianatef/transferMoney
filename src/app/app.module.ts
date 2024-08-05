@@ -14,7 +14,7 @@ import { AccountComponent } from './account/account.component';
 import { MoneyTransferComponent } from './money-transfer/money-transfer.component';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -22,30 +22,13 @@ import { LoginComponent } from './login/login.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { CreatePasswordComponent } from './create-password/create-password.component';
 import { HomeComponent } from './home/home.component';
-import { sign } from 'crypto';
 
 const routes: Routes = [
-  {
-    path: 'transfermoney',
-    component: MoneyTransferComponent,
-  },
-  {
-    path: 'myaccount',
-    component: MyAccountComponent,
-  },
-  {
-    path: 'home',
-    component: HomeComponent,
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
-  },
-  {
-    path: 'register',
-    component: SignUpComponent,
-  },
-
+  { path: 'transfermoney', component: MoneyTransferComponent },
+  { path: 'myaccount', component: MyAccountComponent },
+  { path: 'home', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: SignUpComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 
@@ -71,10 +54,12 @@ const routes: Routes = [
     AppRoutingModule,
     RouterModule.forRoot(routes),
     FormsModule,
-    HttpClientModule,
   ],
-  exports: [RouterModule],
-  providers: [provideClientHydration(), provideAnimationsAsync()],
+  providers: [
+    provideClientHydration(),
+    provideAnimationsAsync(),
+    provideHttpClient(withFetch()),
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

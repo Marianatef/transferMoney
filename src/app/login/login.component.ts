@@ -1,25 +1,36 @@
 import { Component } from '@angular/core';
-import { NgIf } from '@angular/common';
-import { FormsModule, NgForm } from '@angular/forms';
-import { Router, RouterLink, RouterOutlet, Routes } from '@angular/router';
-import { SignUpComponent } from '../sign-up/sign-up.component';
+import { NgForm } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
   log = {
     email: '',
     password: '',
   };
+
+  constructor(private authService: AuthService, private router: Router) {}
+
   onSubmit(form: NgForm) {
-    console.log(form);
+    if (form.valid) {
+      this.authService.login(this.log.email, this.log.password).subscribe(
+        (response) => {
+          console.log('Login successful', response);
+          this.authService.setToken(response.token); // Store the token
+          this.router.navigate(['/home']); // Redirect to home page
+        },
+        (error: HttpErrorResponse) => {
+          console.error('Login failed', error);
+        }
+      );
+    } else {
+      console.error('Form is invalid');
+    }
   }
 }
-// export const routes: Routes = [
-//   {
-//       path:'Login',
-//       component:LoignComponent,
-//   },]

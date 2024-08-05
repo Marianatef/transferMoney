@@ -13,6 +13,7 @@ export class TransferComponent implements OnInit {
   selectedSendCurrency: string = 'USD';
   selectedReceiveCurrency: string = 'EGP';
   senderName: string = 'Jonathon Smith';
+  senderAccount: string = '123456789';
   recipientName: string = 'Asmaa Dosuky';
   recipientAccount: string = '123456789456';
   fees: number = 18.97;

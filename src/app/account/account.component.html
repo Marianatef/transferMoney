@@ -32,13 +32,15 @@
   <div class="profile-details">
     <div *ngIf="currentSection === 'profile'">
       <h1>My Profile</h1>
-      <h2>
+      <h3>
         {{ userProfile.balance }}$ <span class="balance-label">Balance</span>
-      </h2>
-      <div class="detail"><span>First Name :</span> Jonathon Smith</div>
-      <div class="detail"><span>Email :</span> jhonathonsmithgmail.com</div>
-      <div class="detail"><span>Phone :</span> +880125412624</div>
-      <div class="detail"><span>Gender :</span> Male</div>
+      </h3>
+      <div class="detail">
+        <span>First Name :</span> {{ userProfile.fullName }}
+      </div>
+      <div class="detail"><span>Email :</span> {{ userProfile.email }}</div>
+      <div class="detail"><span>Phone :</span> {{ userProfile.phone }}</div>
+      <div class="detail"><span>Gender :</span> {{ userProfile.gender }}</div>
     </div>
 
     <div *ngIf="currentSection === 'payments-history'" class="payment">

@@ -1,4 +1,3 @@
-/* Golbal of style  */
 * {
   overflow: hidden;
 }
@@ -10,7 +9,6 @@ body {
   justify-content: center;
   align-items: center;
 }
-/*  style of form  */
 .container {
   width: 100%;
   max-width: 500px;
@@ -99,7 +97,6 @@ a {
 a:hover {
   text-decoration: none;
 }
-/*  style of Footer  */
 footer {
   display: flex;
   flex-direction: row;
@@ -113,4 +110,9 @@ footer {
   left: 0px;
   bottom: -700px;
   background: #f3e9eb;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.875em;
 }

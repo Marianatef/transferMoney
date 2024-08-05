@@ -11,7 +11,7 @@ nav h1 {
   list-style-type: none;
   padding: 0;
   position: relative;
-  bottom: -12px;
+  bottom: -5px;
   left: 60px;
   text-align: left;
   font-style: Inter;
@@ -20,7 +20,7 @@ nav h1 {
 nav button {
   background-color: #ffffff;
   position: relative;
-  top: -76px;
+  top: -90px;
   right: -1100px;
   width: Hug (190px) px;
   text-align: center;
@@ -37,7 +37,7 @@ nav ul {
   padding: 0;
   color: #000000;
   position: relative;
-  top: -28px;
+  top: -35px;
   left: 60px;
   text-align: center;
 }
