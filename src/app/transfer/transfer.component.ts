@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HeaderService } from '../../services/header.service'; // Adjust the import path
+import { HeaderService } from '../../services/header.service';
+import { Location } from '@angular/common';
+import { TransferService } from '../../services/transfer.service'; // Import the TransferService
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-transfer',
@@ -9,7 +12,7 @@ import { HeaderService } from '../../services/header.service'; // Adjust the imp
 export class TransferComponent implements OnInit {
   currentStep: number = 1;
   amount: number = 1000;
-  recipientAmount: number = 48422.0;
+  recipientAmount: number = 0; // Default to 0 until fetched
   selectedSendCurrency: string = 'USD';
   selectedReceiveCurrency: string = 'EGP';
   senderName: string = 'Jonathon Smith';
@@ -17,6 +20,7 @@ export class TransferComponent implements OnInit {
   recipientName: string = 'Asmaa Dosuky';
   recipientAccount: string = '123456789456';
   fees: number = 18.97;
+  exchangeRate: number = 0; // Exchange rate from API
 
   showFavoriteList: boolean = false;
   favoriteList = [
@@ -24,10 +28,34 @@ export class TransferComponent implements OnInit {
     { name: 'Asmaa Dosuky', account: '123456789456' },
   ];
 
-  constructor(private headerService: HeaderService) {}
+  constructor(
+    private headerService: HeaderService,
+    private location: Location,
+    private transferService: TransferService // Inject TransferService
+  ) {}
 
   ngOnInit() {
     this.updateHeader(this.currentStep);
+    this.fetchExchangeRate(); // Ensure exchange rate is fetched on component init
+  }
+
+  fetchExchangeRate() {
+    this.transferService
+      .getExchangeRate(this.selectedSendCurrency, this.selectedReceiveCurrency)
+      .subscribe({
+        next: (response: any) => {
+          this.exchangeRate = response.exchangeRate; // Adjust this if your API returns a different structure
+          this.updateRecipientAmount();
+        },
+        error: (error: HttpErrorResponse) => {
+          console.error('Failed to fetch exchange rate', error.message);
+          // Optionally, show an error message to the user
+        },
+      });
+  }
+
+  updateRecipientAmount() {
+    this.recipientAmount = this.amount * this.exchangeRate;
   }
 
   setStep(step: number) {
@@ -36,16 +64,11 @@ export class TransferComponent implements OnInit {
   }
 
   updateHeader(step: number) {
-    if (step === 1) {
-      this.headerService.updateTitle('Transfer Money');
-      this.headerService.updateBreadcrumb(['Home', 'About Us', 'Amount']);
-    } else if (step === 2) {
-      this.headerService.updateTitle('Transfer Money');
-      this.headerService.updateBreadcrumb(['Home', 'About Us', 'Confirmation']);
-    } else if (step === 3) {
-      this.headerService.updateTitle('Transfer Money');
-      this.headerService.updateBreadcrumb(['Home', 'About Us', 'Payment']);
-    }
+    const titles = ['Amount', 'Confirmation', 'Payment'];
+    const breadcrumbs = ['Home', 'About Us'];
+
+    this.headerService.updateTitle(`Transfer Money`);
+    this.headerService.updateBreadcrumb([...breadcrumbs, titles[step - 1]]);
   }
 
   isStepActive(step: number): boolean {
@@ -61,9 +84,21 @@ export class TransferComponent implements OnInit {
   }
 
   confirmTransfer() {
-    // Implement logic to confirm the transfer
-    console.log('Transfer confirmed');
-    this.setStep(3);
+    const transferData = {
+      amount: this.amount,
+      recipientAccount: this.recipientAccount,
+      currency: this.selectedSendCurrency,
+    };
+    this.transferService.transferMoney(transferData).subscribe({
+      next: (response: any) => {
+        console.log('Transfer successful', response);
+        this.setStep(3);
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('Transfer failed', error.message);
+        // Optionally, show an error message to the user
+      },
+    });
   }
 
   navigateToHome() {
@@ -72,5 +107,19 @@ export class TransferComponent implements OnInit {
 
   addToFavourite() {
     // Logic to add to favorite list
+  }
+
+  closeFavoriteList(): void {
+    this.showFavoriteList = false;
+  }
+
+  onSendCurrencyChange(newCurrency: string) {
+    this.selectedSendCurrency = newCurrency;
+    this.fetchExchangeRate(); // Fetch exchange rate whenever the send currency changes
+  }
+
+  onReceiveCurrencyChange(newCurrency: string) {
+    this.selectedReceiveCurrency = newCurrency;
+    this.fetchExchangeRate(); // Fetch exchange rate whenever the receive currency changes
   }
 }

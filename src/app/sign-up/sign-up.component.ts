@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Location } from '@angular/common';
 
 interface BirthDate {
   day: string;
@@ -63,12 +64,24 @@ export class SignUpComponent {
     (_, i) => new Date().getFullYear() - i
   );
 
-  constructor(private authService: AuthService) {}
-
+  constructor(private authService: AuthService, private location: Location) {}
   onSubmit(form: NgForm) {
     if (form.valid) {
       if (this.user.password !== this.user.confirmPassword) {
         console.error('Passwords do not match!');
+        // Show user feedback
+        return;
+      }
+
+      if (
+        !this.isValidDate(
+          +this.user.birthDate.day,
+          +this.user.birthDate.month,
+          +this.user.birthDate.year
+        )
+      ) {
+        console.error('Invalid birth date!');
+        // Show user feedback
         return;
       }
 
@@ -85,19 +98,34 @@ export class SignUpComponent {
         birthDate: formattedBirthDate,
       };
 
-      console.log('Sending registration data:', registrationData);
+      console.log('Sending registration data:', registrationData); // Log data to be sent
 
       this.authService.register(registrationData).subscribe(
         (response: any) => {
           console.log('Registration successful', response);
+          // Redirect or show success message
         },
         (error: HttpErrorResponse) => {
           console.error('Registration failed', error);
-          console.error('Error details:', error.error);
+          // Show user-friendly error message
         }
       );
     } else {
       console.error('Form is invalid');
+      // Show validation errors to the user
     }
+  }
+
+  private isValidDate(day: number, month: number, year: number): boolean {
+    const date = new Date(year, month - 1, day);
+    return (
+      date.getDate() === day &&
+      date.getMonth() === month - 1 &&
+      date.getFullYear() === year
+    );
+  }
+
+  goBack(): void {
+    this.location.back(); // Navigates to the previous page
   }
 }

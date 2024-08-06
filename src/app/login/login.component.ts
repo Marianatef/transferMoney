@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -15,15 +16,23 @@ export class LoginComponent {
     password: '',
   };
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private location: Location
+  ) {}
 
   onSubmit(form: NgForm) {
     if (form.valid) {
       this.authService.login(this.log.email, this.log.password).subscribe(
-        (response) => {
+        (response: { token: string; }) => {
           console.log('Login successful', response);
-          this.authService.setToken(response.token); // Store the token
-          this.router.navigate(['/home']); // Redirect to home page
+          if (response.token) {
+            this.authService.setToken(response.token); // Store the token
+            this.router.navigate(['/home']); // Redirect to home page
+          } else {
+            console.error('Login response does not contain a token');
+          }
         },
         (error: HttpErrorResponse) => {
           console.error('Login failed', error);
@@ -32,5 +41,9 @@ export class LoginComponent {
     } else {
       console.error('Form is invalid');
     }
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

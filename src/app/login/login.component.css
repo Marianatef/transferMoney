@@ -26,7 +26,7 @@ body {
 
 h1 {
   font-size: 24px;
-  margin-bottom: 20px;
+  margin: 20px;
 }
 h2 {
   font-size: 20px;
@@ -74,7 +74,7 @@ small {
   text-align: left;
 }
 
-button {
+form button {
   padding: 10px;
   border: none;
   border-radius: 4px;
@@ -83,7 +83,7 @@ button {
   font-size: 16px;
   cursor: pointer;
 }
-button:disabled {
+form button:disabled {
   color: #ffffff;
   background-color: #6c757d;
 }
@@ -109,4 +109,19 @@ footer {
   left: 0px;
   bottom: 0px;
   background: #f3e9eb;
+}
+.start {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+.close-page {
+  margin: 20px;
+  width: 30px;
+  height: 30px;
+  font-size: xx-large;
+  background-color: #fff;
+  border: #fff;
+  cursor: pointer;
 }

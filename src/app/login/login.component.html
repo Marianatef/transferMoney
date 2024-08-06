@@ -1,4 +1,7 @@
-<br /><br />
+<div class="start">
+  <button class="close-page" (click)="goBack()">×</button>
+  <h1>Speedo Transfer</h1>
+</div>
 <h1 style="text-align: center">Login</h1>
 <p
   style="
@@ -48,7 +51,13 @@
       <small *ngIf="log_Form && passwordInput.invalid && passwordInput.dirty">
         Invalid Password Format!
       </small>
-      <button type="submit" [disabled]="log_Form.invalid">Login</button>
+      <button
+        type="submit"
+        [disabled]="log_Form.invalid"
+        onclick="window.location.href='/homelogin'"
+      >
+        Login
+      </button>
     </form>
     <p>Don’t have an account? <a href="/register">Create Account</a></p>
   </div>

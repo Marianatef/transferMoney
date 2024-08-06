@@ -1,4 +1,7 @@
-<h1>Speedo Transfer</h1>
+<div class="start">
+  <button class="close-page" (click)="goBack()">×</button>
+  <h1>Speedo Transfer</h1>
+</div>
 <div class="container">
   <div class="form-container">
     <h2>Create Your Account</h2>
@@ -165,7 +168,11 @@
       >
         Passwords must match.
       </small>
-      <button type="submit" [disabled]="userForm.invalid">
+      <button
+        type="submit"
+        [disabled]="userForm.invalid"
+        onclick="window.location.href='/login'"
+      >
         Create Account
       </button>
     </form>

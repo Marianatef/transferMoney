@@ -32,7 +32,7 @@
       <div *ngSwitchCase="1" class="amount-step">
         <h2>How much are you sending?</h2>
         <p class="amount-rate">Rate guaranteed (2h)</p>
-        <h3>1 USD = 48.4220 EGP</h3>
+        <h3>{{ selectedReceiveCurrency }}</h3>
         <form>
           <div class="form-group">
             <label for="amount">You send</label>
@@ -41,9 +41,14 @@
                 type="number"
                 id="amount"
                 name="amount"
+                [(ngModel)]="amount"
                 placeholder="1000"
               />
-              <select id="currency-send">
+              <select
+                id="currency-send"
+                name="currencySend"
+                [(ngModel)]="selectedSendCurrency"
+              >
                 <option value="USD">USD</option>
                 <option value="EUR">EUR</option>
                 <option value="KSR">KSR</option>
@@ -58,9 +63,15 @@
                 type="number"
                 id="recipientAmount"
                 name="recipientAmount"
+                [value]="recipientAmount"
                 placeholder="47,488.42"
+                readonly
               />
-              <select id="currency-receive">
+              <select
+                id="currency-receive"
+                name="currencyReceive"
+                [(ngModel)]="selectedReceiveCurrency"
+              >
                 <option value="EGP" data-flag="eg">EGP</option>
                 <option value="USD" data-flag="us">USD</option>
                 <option value="EUR" data-flag="eu">EUR</option>
@@ -71,18 +82,16 @@
           <div class="recipient-info">
             <h4>
               Recipient Information
-              <span class="favorite" (click)="toggleFavoriteList()"
-                ><i class="fa-regular fa-star"></i> Favourite
-                <i class="fa-solid fa-angle-right"></i
-              ></span>
+              <span class="favorite" (click)="toggleFavoriteList()">
+                <i class="fa-regular fa-star"></i> Favourite
+                <i class="fa-solid fa-angle-right"></i>
+              </span>
             </h4>
             <div *ngIf="showFavoriteList" class="modal-overlay">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5><i class="fa-regular fa-star"></i> Favourite List</h5>
-                  <button class="close" (click)="toggleFavoriteList()">
-                    ×
-                  </button>
+                  <button class="close" (click)="closeFavoriteList()">×</button>
                 </div>
                 <div class="modal-body">
                   <ul>
@@ -200,16 +209,16 @@
 
           <div class="detail-row">
             <span class="detail-label">Transfer amount</span>
-            <span class="detail-value"
-              >{{ amount }} {{ selectedReceiveCurrency }}</span
-            >
+            <span class="detail-value">
+              {{ amount }} {{ selectedReceiveCurrency }}
+            </span>
           </div>
 
           <div class="detail-row">
             <span class="detail-label">Fees</span>
-            <span class="detail-value"
-              >{{ fees }} {{ selectedSendCurrency }}</span
-            >
+            <span class="detail-value">
+              {{ fees }} {{ selectedSendCurrency }}
+            </span>
           </div>
         </div>
 

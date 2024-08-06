@@ -1,0 +1,26 @@
+<nav class="navbar">
+  <div class="navbar-brand">Speedo Transfer</div>
+  <ul class="navbar-nav">
+    <li><a routerLink="/homelogin">Home</a></li>
+    <li>
+      <a routerLink="/transfermoney" style="color: brown">Money Transfer</a>
+    </li>
+    <li><a routerLink="/myaccount">My Account</a></li>
+  </ul>
+  <div class="navbar-user">
+    <div class="user-avatar">{{ userInitials }}</div>
+    <div class="user-name">{{ userName }}</div>
+    <div class="dropdown" #dropdown>
+      <button class="dropdown-toggle" (click)="toggleDropdown($event)">
+        ▼
+      </button>
+      <ul class="dropdown-menu">
+        <li><a routerLink="/myaccount">My Account</a></li>
+        <li><a routerLink="/myaccount">Payment History</a></li>
+        <li><a routerLink="/myaccount">Setting</a></li>
+        <li><a routerLink="/createpassword">Change Password</a></li>
+        <li><a href="/home">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>

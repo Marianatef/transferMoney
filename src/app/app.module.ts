@@ -22,13 +22,19 @@ import { LoginComponent } from './login/login.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { CreatePasswordComponent } from './create-password/create-password.component';
 import { HomeComponent } from './home/home.component';
+import { HomeLoginComponent } from './home-login/home-login.component';
+import { NoProfileComponent } from './no-profile/no-profile.component';
+import { NavLoginComponent } from './nav-login/nav-login.component';
 
 const routes: Routes = [
   { path: 'transfermoney', component: MoneyTransferComponent },
   { path: 'myaccount', component: MyAccountComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'homelogin', component: HomeLoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: SignUpComponent },
+  { path: 'createpassword', component: CreatePasswordComponent },
+  { path: 'profile', component: NoProfileComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 
@@ -48,6 +54,9 @@ const routes: Routes = [
     HomePageComponent,
     CreatePasswordComponent,
     HomeComponent,
+    HomeLoginComponent,
+    NoProfileComponent,
+    NavLoginComponent,
   ],
   imports: [
     BrowserModule,

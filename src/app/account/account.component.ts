@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HeaderService } from '../../services/header.service';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
@@ -8,12 +9,22 @@ import { HeaderService } from '../../services/header.service';
 export class AccountComponent {
   currentSection: string = 'profile';
   settingsTab: string = 'profile';
+  user: any;
 
-  constructor(private headerService: HeaderService) {}
+  constructor(private headerService: HeaderService , private authService: AuthService) {}
 
   ngOnInit() {
     this.headerService.updateTitle('My Account');
     this.headerService.updateBreadcrumb(['Home', 'My Account']);
+
+    this.authService.getUserDetails().subscribe({
+      next: (user) => {
+        this.user = user;
+      },
+      error: (err) => {
+        console.error('Error fetching user details:', err);
+      }
+    });
   }
 
   setSection(section: string) {
@@ -69,4 +80,5 @@ export class AccountComponent {
       console.error('Passwords do not match');
     }
   }
+
 }
