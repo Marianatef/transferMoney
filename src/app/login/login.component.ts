@@ -15,6 +15,8 @@ export class LoginComponent {
     email: '',
     password: '',
   };
+  errorMessage: string = ''; // To hold error messages
+  isLoading: boolean = false; // To manage loading state
 
   constructor(
     private authService: AuthService,
@@ -24,22 +26,29 @@ export class LoginComponent {
 
   onSubmit(form: NgForm) {
     if (form.valid) {
-      this.authService.login(this.log.email, this.log.password).subscribe(
-        (response: { token: string; }) => {
+      this.isLoading = true;
+      this.authService.login(this.log.email, this.log.password).subscribe({
+        next: (response) => {
           console.log('Login successful', response);
           if (response.token) {
             this.authService.setToken(response.token); // Store the token
-            this.router.navigate(['/home']); // Redirect to home page
+            this.router.navigate(['/homelogin']); // Redirect to home page
+            form.reset(); // Clear form fields on success
           } else {
-            console.error('Login response does not contain a token');
+            this.errorMessage = 'Login failed. Please try again.'; // Set error message
           }
         },
-        (error: HttpErrorResponse) => {
+        error: (error: HttpErrorResponse) => {
           console.error('Login failed', error);
-        }
-      );
+          this.errorMessage =
+            error.error.message || 'An error occurred. Please try again.'; // Set error message
+        },
+        complete: () => {
+          this.isLoading = false; // Ensure loading state is reset when request completes
+        },
+      });
     } else {
-      console.error('Form is invalid');
+      this.errorMessage = 'Please fill out all required fields correctly.';
     }
   }
 

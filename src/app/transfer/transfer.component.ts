@@ -1,7 +1,8 @@
+// transfer.component.ts
 import { Component, OnInit } from '@angular/core';
 import { HeaderService } from '../../services/header.service';
 import { Location } from '@angular/common';
-import { TransferService } from '../../services/transfer.service'; // Import the TransferService
+import { TransferService, TransferData } from '../../services/transfer.service'; // Import TransferData
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -84,15 +85,17 @@ export class TransferComponent implements OnInit {
   }
 
   confirmTransfer() {
-    const transferData = {
+    const transferData: TransferData = {
+      accountNumber: this.recipientAccount, // Adjust if needed
       amount: this.amount,
-      recipientAccount: this.recipientAccount,
-      currency: this.selectedSendCurrency,
+      sendCurrency: this.selectedSendCurrency,
+      receiveCurrency: this.selectedReceiveCurrency,
     };
+
     this.transferService.transferMoney(transferData).subscribe({
       next: (response: any) => {
         console.log('Transfer successful', response);
-        this.setStep(3);
+        this.setStep(3); // Move to payment step or show success message
       },
       error: (error: HttpErrorResponse) => {
         console.error('Transfer failed', error.message);
@@ -102,11 +105,12 @@ export class TransferComponent implements OnInit {
   }
 
   navigateToHome() {
-    // Logic to navigate back to home
+    this.location.back(); // Navigate back to the previous page or home
   }
 
   addToFavourite() {
     // Logic to add to favorite list
+    // Example: this.favoriteList.push({ name: this.recipientName, account: this.recipientAccount });
   }
 
   closeFavoriteList(): void {

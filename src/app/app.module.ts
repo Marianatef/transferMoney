@@ -25,6 +25,9 @@ import { HomeComponent } from './home/home.component';
 import { HomeLoginComponent } from './home-login/home-login.component';
 import { NoProfileComponent } from './no-profile/no-profile.component';
 import { NavLoginComponent } from './nav-login/nav-login.component';
+import { AuthInterceptor } from './auth.interceptor';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 
 const routes: Routes = [
   { path: 'transfermoney', component: MoneyTransferComponent },
@@ -63,11 +66,14 @@ const routes: Routes = [
     AppRoutingModule,
     RouterModule.forRoot(routes),
     FormsModule,
+    HttpClientModule,
   ],
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
     provideHttpClient(withFetch()),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    [CookieService],
   ],
   bootstrap: [AppComponent],
 })

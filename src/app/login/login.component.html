@@ -2,6 +2,7 @@
   <button class="close-page" (click)="goBack()">×</button>
   <h1>Speedo Transfer</h1>
 </div>
+
 <h1 style="text-align: center">Login</h1>
 <p
   style="
@@ -11,17 +12,15 @@
     text-align: center;
   "
 >
-  New Account ? <a href="/register">Sign Up</a>
+  New Account? <a href="/register">Sign Up</a>
 </p>
+
 <div class="container">
   <div class="form-container">
     <h1 style="text-align: left">Login Here</h1>
     <p style="text-align: left">Welcome back. Login to your account</p>
-    <form
-      id="createAccountForm"
-      #log_Form="ngForm"
-      (ngSubmit)="onSubmit(log_Form)"
-    >
+
+    <form id="loginForm" #log_Form="ngForm" (ngSubmit)="onSubmit(log_Form)">
       <label for="email">Email Address</label>
       <input
         type="email"
@@ -32,10 +31,12 @@
         [(ngModel)]="log.email"
         #emailInput="ngModel"
         email
+        aria-describedby="emailError"
       />
-      <small *ngIf="log_Form && emailInput.invalid && emailInput.dirty">
+      <small *ngIf="log_Form.submitted && emailInput.invalid" id="emailError">
         Invalid Email Format!
       </small>
+
       <label for="password">Password</label>
       <input
         type="password"
@@ -47,21 +48,28 @@
         #passwordInput="ngModel"
         minlength="8"
         maxlength="8"
+        aria-describedby="passwordError"
       />
-      <small *ngIf="log_Form && passwordInput.invalid && passwordInput.dirty">
-        Invalid Password Format!
-      </small>
-      <button
-        type="submit"
-        [disabled]="log_Form.invalid"
-        onclick="window.location.href='/homelogin'"
+      <small
+        *ngIf="log_Form.submitted && passwordInput.invalid"
+        id="passwordError"
       >
+        Password must be 8 characters long!
+      </small>
+
+      <button type="submit" [disabled]="log_Form.invalid || isLoading">
         Login
       </button>
+
+      <div *ngIf="isLoading" style="text-align: center; margin-top: 1rem">
+        Logging in...
+      </div>
     </form>
+
     <p>Don’t have an account? <a href="/register">Create Account</a></p>
   </div>
 </div>
-<footer>
-  <p style="text-align: center">©Speedo Transfer Payments Limited 2024</p>
+
+<footer style="text-align: center; padding: 1rem 0; background-color: #f1f1f1">
+  <p>© Speedo Transfer Payments Limited 2024</p>
 </footer>

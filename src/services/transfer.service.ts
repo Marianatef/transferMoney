@@ -1,7 +1,15 @@
+// transfer.service.ts
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+
+export interface TransferData {
+  accountNumber: string;
+  amount: number;
+  sendCurrency: string;
+  receiveCurrency: string;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +23,7 @@ export class TransferService {
     const token = this.authService.getToken();
     return new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: token ? `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b3Vzc2VmLnNhbWlyQGV4YW1wbGUuY29tIiwianRpIjoiMSIsImlhdCI6MTcyMjkyOTc2MiwiZXhwIjoxNzIyOTMxNTYyfQ.BbAhLC1TL0iILbG5de2WKvxOBFJUKQHOuEXg3zju6dQ` : '',
+      Authorization: token ? `Bearer ${token}` : '',
     });
   }
 
@@ -28,7 +36,7 @@ export class TransferService {
     );
   }
 
-  transferMoney(transferData: any): Observable<any> {
+  transferMoney(transferData: TransferData): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/api/transfer`, transferData, {
       headers: this.getAuthHeaders(),
     });

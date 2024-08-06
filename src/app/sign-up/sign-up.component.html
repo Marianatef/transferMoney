@@ -103,13 +103,18 @@
       </select>
       <label>Date of Birth</label>
       <div class="dob-container">
-        <select id="day" name="day" [(ngModel)]="user.birthDate.day" required>
+        <select
+          id="day"
+          name="birthDate.day"
+          [(ngModel)]="user.birthDate.day"
+          required
+        >
           <option value="" disabled>DD</option>
           <option *ngFor="let day of days" [value]="day">{{ day }}</option>
         </select>
         <select
           id="month"
-          name="month"
+          name="birthDate.month"
           [(ngModel)]="user.birthDate.month"
           required
         >
@@ -120,7 +125,7 @@
         </select>
         <select
           id="year"
-          name="year"
+          name="birthDate.year"
           [(ngModel)]="user.birthDate.year"
           required
         >
@@ -168,11 +173,7 @@
       >
         Passwords must match.
       </small>
-      <button
-        type="submit"
-        [disabled]="userForm.invalid"
-        onclick="window.location.href='/login'"
-      >
+      <button type="submit" [disabled]="userForm.invalid || isLoading">
         Create Account
       </button>
     </form>

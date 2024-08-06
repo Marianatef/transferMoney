@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router'; // Import Router
 
 interface BirthDate {
   day: string;
@@ -17,9 +18,9 @@ interface User {
   username: string;
   password: string;
   confirmPassword: string;
-  birthDate: BirthDate;
   gender: string;
   country: string;
+  birthDate: BirthDate; // Keep as a structured object
 }
 
 @Component({
@@ -64,12 +65,21 @@ export class SignUpComponent {
     (_, i) => new Date().getFullYear() - i
   );
 
-  constructor(private authService: AuthService, private location: Location) {}
+  errorMessage: string = ''; // To hold error messages
+  isLoading: boolean = false; // To manage loading state
+
+  constructor(
+    private authService: AuthService,
+    private location: Location,
+    private router: Router // Inject Router
+  ) {}
+
   onSubmit(form: NgForm) {
+    this.errorMessage = ''; // Clear any previous error messages
+
     if (form.valid) {
       if (this.user.password !== this.user.confirmPassword) {
-        console.error('Passwords do not match!');
-        // Show user feedback
+        this.errorMessage = 'Passwords do not match!';
         return;
       }
 
@@ -80,12 +90,11 @@ export class SignUpComponent {
           +this.user.birthDate.year
         )
       ) {
-        console.error('Invalid birth date!');
-        // Show user feedback
+        this.errorMessage = 'Invalid birth date!';
         return;
       }
 
-      // Format birthDate
+      // Format birthDate to 'YYYY-MM-DD'
       const formattedBirthDate = `${
         this.user.birthDate.year
       }-${this.user.birthDate.month.padStart(
@@ -95,24 +104,30 @@ export class SignUpComponent {
 
       const registrationData = {
         ...this.user,
-        birthDate: formattedBirthDate,
+        birthDate: formattedBirthDate, // Use the formatted date
       };
 
-      console.log('Sending registration data:', registrationData); // Log data to be sent
+      this.isLoading = true; // Set loading state to true
 
-      this.authService.register(registrationData).subscribe(
-        (response: any) => {
+      this.authService.register(registrationData).subscribe({
+        next: (response: any) => {
           console.log('Registration successful', response);
-          // Redirect or show success message
+          this.isLoading = false; // Set loading state to false
+          form.reset();
+          this.router.navigate(['/login']); // Navigate to login page
         },
-        (error: HttpErrorResponse) => {
+        error: (error: HttpErrorResponse) => {
           console.error('Registration failed', error);
-          // Show user-friendly error message
-        }
-      );
+          this.errorMessage =
+            error.error.message || 'Registration failed. Please try again.';
+          this.isLoading = false; // Set loading state to false
+        },
+        complete: () => {
+          // Optionally handle completion
+        },
+      });
     } else {
-      console.error('Form is invalid');
-      // Show validation errors to the user
+      this.errorMessage = 'Please fill out all required fields correctly.';
     }
   }
 
