@@ -32,7 +32,7 @@
       <div *ngSwitchCase="1" class="amount-step">
         <h2>How much are you sending?</h2>
         <p class="amount-rate">Rate guaranteed (2h)</p>
-        <h3>{{ selectedReceiveCurrency }}</h3>
+        <h3>{{ recipientAmount }}{{ selectedReceiveCurrency }}</h3>
         <form>
           <div class="form-group">
             <label for="amount">You send</label>
@@ -42,17 +42,19 @@
                 id="amount"
                 name="amount"
                 [(ngModel)]="amount"
+                (ngModelChange)="updateRecipientAmount()"
                 placeholder="1000"
               />
               <select
                 id="currency-send"
                 name="currencySend"
                 [(ngModel)]="selectedSendCurrency"
+                (ngModelChange)="onSendCurrencyChange($event)"
               >
                 <option value="USD">USD</option>
                 <option value="EUR">EUR</option>
                 <option value="KSR">KSR</option>
-                <option value="EGP">EGP</option>
+                <option value="EGY">EGY</option>
               </select>
             </div>
           </div>
@@ -71,14 +73,16 @@
                 id="currency-receive"
                 name="currencyReceive"
                 [(ngModel)]="selectedReceiveCurrency"
+                (ngModelChange)="onReceiveCurrencyChange($event)"
               >
-                <option value="EGP" data-flag="eg">EGP</option>
-                <option value="USD" data-flag="us">USD</option>
-                <option value="EUR" data-flag="eu">EUR</option>
-                <option value="KSR" data-flag="ksr">KSR</option>
+                <option value="EGY">EGY</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="KSR">KSR</option>
               </select>
             </div>
           </div>
+
           <div class="recipient-info">
             <h4>
               Recipient Information
@@ -112,7 +116,12 @@
             </div>
             <div class="form-group">
               <label for="recipientName">Recipient Name</label>
-              <input type="text" id="recipientName" name="recipientName" />
+              <input
+                type="text"
+                id="recipientName"
+                name="recipientName"
+                [(ngModel)]="recipientName"
+              />
             </div>
             <div class="form-group">
               <label for="recipientAccount">Recipient Account</label>
@@ -120,6 +129,7 @@
                 type="text"
                 id="recipientAccount"
                 name="recipientAccount"
+                [(ngModel)]="recipientAccount"
               />
             </div>
           </div>
@@ -128,6 +138,7 @@
           </div>
         </form>
       </div>
+
       <div *ngSwitchCase="2">
         <div class="confirmation-step">
           <h2 class="transfer-amount">
@@ -174,6 +185,7 @@
           </div>
         </div>
       </div>
+
       <div *ngSwitchCase="3" class="payment">
         <div class="success-icon">
           <i class="fa fa-check-circle"></i>

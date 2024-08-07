@@ -1,97 +1,109 @@
 import { Injectable } from '@angular/core';
 import {
   HttpClient,
-  HttpHeaders,
   HttpErrorResponse,
+  HttpHeaders,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-
-interface LoginResponse {
-  token: string;
-  email: string;
-  tokenType: string;
-  message: string;
-  status: {
-    error: boolean;
-    is4xxClientError: boolean;
-    is5xxServerError: boolean;
-    is1xxInformational: boolean;
-    is2xxSuccessful: boolean;
-    is3xxRedirection: boolean;
-  };
-}
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'https://speedo-transfer-437e318f5416.herokuapp.com/api';
+  private apiUrl = 'https://speedo-transfer-437e318f5416.herokuapp.com';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
-  getToken(): string | null {
-    return typeof window !== 'undefined'
-      ? localStorage.getItem('authToken')
-      : null;
-  }
-
-  setToken(token: string): void {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('authToken', token);
-    }
-  }
-
-  clearToken(): void {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('authToken');
-    }
-  }
-
-  register(user: any): Observable<any> {
+  // Get user details
+  getUser(): Observable<any> {
     return this.http
-      .post<any>(`${this.apiUrl}/auth/register`, user)
+      .get(`${this.apiUrl}/api/user/details`)
       .pipe(catchError(this.handleError));
   }
 
-  login(email: string, password: string): Observable<LoginResponse> {
+  // Get user balance
+  getBalance(): Observable<string> {
     return this.http
-      .post<LoginResponse>(`${this.apiUrl}/auth/login`, { email, password })
+      .get(`${this.apiUrl}/api/account/balance`, { responseType: 'text' })
+      .pipe(catchError(this.handleError));
+  }
+
+  // Update user details
+  updateUser(updatedFields: any): Observable<any> {
+    return this.http
+      .put(`${this.apiUrl}/api/user/update`, updatedFields)
+      .pipe(catchError(this.handleError));
+  }
+
+  // Update user password
+  // updatePassword(passwordData: { currentPassword: string; newPassword: string }): Observable<any> {
+  //   return this.http.put(`${this.apiUrl}/api/password`, passwordData).pipe(
+  //     catchError(this.handleError)
+  //   );
+  // }
+
+  // Get user transaction history
+  getHistory(): Observable<any> {
+    return this.http
+      .get(`${this.apiUrl}/api/transaction`)
+      .pipe(catchError(this.handleError));
+  }
+
+  // Register a new user
+  register(user: any): Observable<any> {
+    return this.http
+      .post<any>(`${this.apiUrl}/api/auth/register`, user)
+      .pipe(catchError(this.handleError));
+  }
+
+  // Log in a user
+  login(email: string, password: string): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const payload = JSON.stringify({ email, password });
+    return this.http
+      .post<{ token: string }>(`${this.apiUrl}/api/auth/login`, payload, {
+        headers,
+      })
       .pipe(
         tap((response) => {
           if (response.token) {
-            this.setToken(response.token); // Store the token
+            localStorage.setItem('authToken', response.token); // Save the token to localStorage
+          }
+        }),
+        catchError((error: HttpErrorResponse) => {
+          console.error('Login error:', error);
+          if (error.status === 401) {
+            console.error('Unauthorized: Invalid credentials');
           } else {
-            console.error('Login response does not contain a token');
-            // Optionally, throw an error or handle it appropriately
+            console.error('An unexpected error occurred:', error);
           }
-        }),
-        catchError(this.handleError)
+          return throwError(error);
+        })
       );
   }
 
-  refreshToken(): Observable<any> {
-    const token = this.getToken();
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    });
-
-    return this.http
-      .post<any>(`${this.apiUrl}/auth/refresh-token`, {}, { headers })
-      .pipe(
-        tap((response) => {
-          if (response.token) {
-            this.setToken(response.token); // Store the new token
-          }
-        }),
-        catchError(this.handleError)
-      );
+  // Get the token from localStorage
+  getToken(): string | null {
+    return localStorage.getItem('authToken');
   }
 
-  private handleError(error: HttpErrorResponse) {
+  // Check if the user is authenticated
+  isAuthenticated(): boolean {
+    return !!this.getToken();
+  }
+
+  // Log out the user
+  logout(): void {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.removeItem('authToken'); // Clear the token from localStorage
+    }
+  }
+
+  // Error handling method
+  private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = 'An unknown error occurred!';
-
     if (error.error instanceof ErrorEvent) {
       errorMessage = `Error: ${error.error.message}`;
     } else {
@@ -114,12 +126,7 @@ export class AuthService {
           break;
       }
     }
-
     console.error(errorMessage);
     return throwError(() => new Error(errorMessage));
-  }
-
-  logout(): void {
-    localStorage.removeItem('authToken'); // Clear the token from storage
   }
 }

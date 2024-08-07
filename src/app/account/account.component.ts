@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderService } from '../../services/header.service';
-import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service'; // Updated to AuthService
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-account',
@@ -43,7 +44,7 @@ export class AccountComponent implements OnInit {
 
   constructor(
     private headerService: HeaderService,
-    private userService: UserService
+    private authService: AuthService // Updated to AuthService
   ) {}
 
   ngOnInit(): void {
@@ -54,7 +55,7 @@ export class AccountComponent implements OnInit {
   }
 
   loadUserDetails(): void {
-    this.userService.getUserDetails().subscribe({
+    this.authService.getUser().subscribe({
       next: (user: any) => {
         this.user = user;
         this.updateUserProfile(user);
@@ -69,7 +70,7 @@ export class AccountComponent implements OnInit {
     this.userProfile.fullName = user.fullName || '';
     this.userProfile.username = user.username || '';
     this.userProfile.lastName = user.lastName || '';
-    this.userProfile.phone = user.phone || '';
+    this.userProfile.phone = user.phoneNumber || '';
     this.userProfile.email = user.email || '';
     this.userProfile.balance = user.balance || 0;
     this.userProfile.gender = user.gender || '';
@@ -90,16 +91,36 @@ export class AccountComponent implements OnInit {
   }
 
   updateProfile(): void {
-    console.log('Profile updated:', this.userProfile);
-    // Implement the update profile logic here
+    this.authService.updateUser(this.userProfile).subscribe({
+      next: (response: any) => {
+        console.log('Profile updated successfully:', response);
+        // Optionally, show a success message to the user
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('Profile update failed:', error.message);
+        // Optionally, show an error message to the user
+      },
+    });
   }
 
-  changeUserPassword(): void {
-    if (this.changePassword.new === this.changePassword.confirm) {
-      console.log('Password changed:', this.changePassword.new);
-      // Implement the password change logic here
-    } else {
-      console.error('Passwords do not match');
-    }
-  }
+  // changeUserPassword(): void {
+  //   if (this.changePassword.new === this.changePassword.confirm) {
+  //     this.authService.updatePassword({
+  //       currentPassword: this.changePassword.current,
+  //       newPassword: this.changePassword.new,
+  //     }).subscribe({
+  //       next: (response: any) => {
+  //         console.log('Password changed successfully:', response);
+  //         // Optionally, show a success message to the user
+  //       },
+  //       error: (error: HttpErrorResponse) => {
+  //         console.error('Password change failed:', error.message);
+  //         // Optionally, show an error message to the user
+  //       },
+  //     });
+  //   } else {
+  //     console.error('Passwords do not match');
+  //     // Optionally, show an error message to the user
+  //   }
+  // }
 }

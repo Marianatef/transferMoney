@@ -31,7 +31,6 @@ export class LoginComponent {
         next: (response) => {
           console.log('Login successful', response);
           if (response.token) {
-            this.authService.setToken(response.token); // Store the token
             this.router.navigate(['/homelogin']); // Redirect to home page
             form.reset(); // Clear form fields on success
           } else {
